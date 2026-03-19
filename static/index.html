@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal AI Assistant with RAG</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">Personal AI Assistant</p>
+        <h1>RAG chat over your own PDFs, notes, and text files</h1>
+        <p class="subcopy">
+          Upload documents, ask grounded questions, and inspect the source chunks used in each answer.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Document Ingestion</h2>
+          <span id="upload-status">Ready</span>
+        </div>
+        <form id="upload-form">
+          <input id="file-input" type="file" accept=".pdf,.txt,.md" required />
+          <button type="submit">Upload & Index</button>
+        </form>
+        <div id="documents" class="documents"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Assistant Chat</h2>
+          <span id="chat-status">Waiting</span>
+        </div>
+        <div id="messages" class="messages"></div>
+        <form id="chat-form">
+          <textarea
+            id="question-input"
+            rows="4"
+            placeholder="Ask something about your uploaded documents..."
+            required
+          ></textarea>
+          <button type="submit">Ask</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+  </html>
