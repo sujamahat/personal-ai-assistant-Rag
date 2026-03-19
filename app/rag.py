@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Dict, List
 from uuid import uuid4
 
-from openai import OpenAI
+from openai import OpenAI, OpenAIError, RateLimitError
 from pypdf import PdfReader
 
 from app.chunking import chunk_text
@@ -30,10 +30,18 @@ def _extract_text(file_path: Path) -> List[Dict[str, object]]:
 
 
 def _embed_texts(texts: List[str]) -> List[List[float]]:
-    response = openai_client.embeddings.create(
-        model=settings.embedding_model,
-        input=texts,
-    )
+    try:
+        response = openai_client.embeddings.create(
+            model=settings.embedding_model,
+            input=texts,
+        )
+    except RateLimitError as exc:
+        raise ValueError(
+            "OpenAI quota is unavailable for embeddings right now. Check your billing and API usage, then try again."
+        ) from exc
+    except OpenAIError as exc:
+        raise ValueError(f"OpenAI embeddings request failed: {exc}") from exc
+
     return [item.embedding for item in response.data]
 
 
@@ -148,9 +156,17 @@ def answer_question(question: str, history: List[dict], contexts: List[Dict[str,
         f"User question:\n{question}"
     )
 
-    response = openai_client.responses.create(
-        model=settings.chat_model,
-        instructions="You are a personal AI assistant that answers with grounded, citation-aware responses.",
-        input=prompt,
-    )
+    try:
+        response = openai_client.responses.create(
+            model=settings.chat_model,
+            instructions="You are a personal AI assistant that answers with grounded, citation-aware responses.",
+            input=prompt,
+        )
+    except RateLimitError as exc:
+        raise ValueError(
+            "OpenAI quota is unavailable for answer generation right now. Check your billing and API usage, then try again."
+        ) from exc
+    except OpenAIError as exc:
+        raise ValueError(f"OpenAI response generation failed: {exc}") from exc
+
     return response.output_text.strip()
