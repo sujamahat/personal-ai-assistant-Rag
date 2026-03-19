@@ -4,7 +4,7 @@ This is a personal AI assistant that chats over my own documents instead of answ
 
 The app lets me upload PDFs, Markdown files, and text notes, stores document chunks in ChromaDB, and then uses OpenAI embeddings plus the Responses API to answer questions with grounded context.
 
-Live demo: `https://personal-ai-assistant-rag-production.up.railway.app`
+Live demo: [personal-ai-assistant-rag-production.up.railway.app](https://personal-ai-assistant-rag-production.up.railway.app)
 
 ## What It Does
 

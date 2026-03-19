@@ -9,6 +9,14 @@ const messagesEl = document.getElementById("messages");
 
 let sessionId = "";
 
+function setEmptyState(target, text) {
+  target.innerHTML = "";
+  const empty = document.createElement("div");
+  empty.className = "empty-state";
+  empty.textContent = text;
+  target.appendChild(empty);
+}
+
 function addMessage(role, text, sources = []) {
   const wrapper = document.createElement("article");
   wrapper.className = `message ${role}`;
@@ -45,7 +53,7 @@ async function refreshDocuments() {
   documentsEl.innerHTML = "";
 
   if (!documents.length) {
-    documentsEl.textContent = "No documents indexed yet.";
+    setEmptyState(documentsEl, "No documents indexed yet. Upload a file to start building your knowledge base.");
     return;
   }
 
@@ -112,3 +120,4 @@ chatForm.addEventListener("submit", async (event) => {
 });
 
 refreshDocuments();
+setEmptyState(messagesEl, "Ask a question after uploading documents to see grounded answers and source citations.");

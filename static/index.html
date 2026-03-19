@@ -9,43 +9,87 @@
   <body>
     <main class="shell">
       <section class="hero">
-        <p class="eyebrow">Personal AI Assistant</p>
-        <h1>RAG chat over your own PDFs, notes, and text files</h1>
-        <p class="subcopy">
-          Upload documents, ask grounded questions, and inspect the source chunks used in each answer.
-        </p>
+        <div class="hero-copy">
+          <p class="eyebrow">Personal AI Assistant</p>
+          <h1>Private knowledge, instant retrieval, grounded answers.</h1>
+          <p class="subcopy">
+            A sleek RAG workspace for querying your own PDFs, notes, and text files with source-aware responses.
+          </p>
+          <div class="hero-meta">
+            <span class="meta-chip">FastAPI</span>
+            <span class="meta-chip">OpenAI</span>
+            <span class="meta-chip">ChromaDB</span>
+            <span class="meta-chip">Railway</span>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <p class="hero-card-label">System Snapshot</p>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-value">RAG</span>
+              <span class="stat-label">retrieval pipeline</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value">PDF</span>
+              <span class="stat-label">notes and documents</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value">Top-K</span>
+              <span class="stat-label">ranked source chunks</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value">Live</span>
+              <span class="stat-label">conversation memory</span>
+            </div>
+          </div>
+        </aside>
       </section>
 
-      <section class="panel">
-        <div class="panel-header">
-          <h2>Document Ingestion</h2>
-          <span id="upload-status">Ready</span>
-        </div>
-        <form id="upload-form">
-          <input id="file-input" type="file" accept=".pdf,.txt,.md" required />
-          <button type="submit">Upload & Index</button>
-        </form>
-        <div id="documents" class="documents"></div>
-      </section>
+      <section class="workspace">
+        <section class="panel side-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Ingestion</p>
+              <h2>Document Vault</h2>
+            </div>
+            <span id="upload-status" class="status-pill">Ready</span>
+          </div>
+          <p class="panel-copy">
+            Upload files, index them into vector search, and build a private knowledge base you can actually interrogate.
+          </p>
+          <form id="upload-form">
+            <label class="file-drop" for="file-input">
+              <span class="file-drop-title">Choose a PDF, Markdown, or text file</span>
+              <span class="file-drop-subtitle">Supported formats: `.pdf`, `.md`, `.txt`</span>
+            </label>
+            <input id="file-input" type="file" accept=".pdf,.txt,.md" required />
+            <button type="submit">Upload and Index</button>
+          </form>
+          <div id="documents" class="documents"></div>
+        </section>
 
-      <section class="panel">
-        <div class="panel-header">
-          <h2>Assistant Chat</h2>
-          <span id="chat-status">Waiting</span>
-        </div>
-        <div id="messages" class="messages"></div>
-        <form id="chat-form">
-          <textarea
-            id="question-input"
-            rows="4"
-            placeholder="Ask something about your uploaded documents..."
-            required
-          ></textarea>
-          <button type="submit">Ask</button>
-        </form>
+        <section class="panel main-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Conversation</p>
+              <h2>Answer Engine</h2>
+            </div>
+            <span id="chat-status" class="status-pill">Waiting</span>
+          </div>
+          <div id="messages" class="messages"></div>
+          <form id="chat-form">
+            <textarea
+              id="question-input"
+              rows="4"
+              placeholder="Ask a grounded question about your uploaded documents..."
+              required
+            ></textarea>
+            <button type="submit">Generate Answer</button>
+          </form>
+        </section>
       </section>
     </main>
 
     <script src="/static/app.js"></script>
   </body>
-  </html>
+</html>
